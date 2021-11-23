@@ -7,9 +7,10 @@ const stopBtn = document.querySelector('button[data-stop]');
 
 startBtn.addEventListener('click', startSwitcher);
 stopBtn.addEventListener('click', stopSwitcher);
+let color = null;
+let timerId = null;
 
 function onBodyColorChange() {
-  let color = null;
   color = getRandomHexColor();
   body.style.backgroundColor = `${color}`;
 }
