@@ -19,6 +19,7 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     if (calendar.selectedDates[0] <= Date.now()) {
+      // ------просит выбрать дату-------
       Notify.failure('Please choose a date in the future');
       startBtn.disabled = true;
     } else {
@@ -34,6 +35,7 @@ const calendar = flatpickr(document.querySelector('input#datetime-picker'), opti
 class Timer {
   constructor({ onTick }) {
     this.onTick = onTick;
+    this.init();
   }
   start() {
     const futureDate = new Date(calendar.selectedDates[0]);
@@ -41,10 +43,10 @@ class Timer {
       const currentDate = Date.now();
       const countdown = futureDate - currentDate;
       if (futureDate - currentDate < 1000) {
-        console.log('время вышло');
+        // console.log('время вышло');
         cndwnSeconds.textContent = '00';
         for (let field of fields) {
-          field.style.color = '#9e2611';
+          field.style.color = '#e64b40';
         }
         return;
       }
@@ -52,6 +54,11 @@ class Timer {
       this.onTick(time);
       startBtn.disabled = true;
     }, 1000);
+  }
+
+  init() {
+    startBtn.disabled = true;
+    Notify.info('Please choose a date in the future');
   }
 
   // -------------перевод мс в дни/часы и тд, с добавлением нулей--------------------------
