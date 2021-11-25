@@ -1,5 +1,6 @@
-const form = document.querySelector('.form');
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+const form = document.querySelector('.form');
 form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(evt) {
@@ -22,7 +23,6 @@ function onFormSubmit(evt) {
     promiseDelay += stepValue;
   }
 }
-
 // ------функция создает промис--------------------------------------
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
@@ -38,9 +38,11 @@ function createPromise(position, delay) {
   });
 
   promise.then(({ position, delay }) => {
-    console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+    Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
+    // console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
   });
   promise.catch(({ position, delay }) => {
-    console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+    Notify.failure(`Rejected promise ${position} in ${delay}ms`);
+    // console.log(`❌ Rejected promise ${position} in ${delay}ms`);
   });
 }
